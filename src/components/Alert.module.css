@@ -4,3 +4,11 @@
   border-radius: 4px;
   color: white;
 }
+
+.success {
+  background-color: green;
+}
+
+.error {
+  background-color: red;
+}

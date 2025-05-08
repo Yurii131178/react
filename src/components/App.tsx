@@ -17,7 +17,15 @@ export default function App() {
         price={14.29}
       />
 
-      <Alert/>
+      <Alert message="Would you like to browse our recommended products?" />
+      <Alert
+        type="success"
+        message="Payment received, thank you for your purchase"
+      />
+      <Alert
+        type="error"
+        message="Please, settle the due amount"
+      />
            
     </>
   );

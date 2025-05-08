@@ -1,7 +1,20 @@
-import css from "./Alert.module.css";
+// import css from "./Alert.module.css";
 
-export default function Alert() {
-  return <p className={css.alert}>***This is alert text*** // CSS-модулі – це окремі .module.css файли, які прив’язані до конкретного компонента.
-Класи стають локальними: їх не видно іншим компонентам.
-Ви імпортуєте модуль як об’єкт і звертаєтесь до класів через css.className </p>;
+// export default function Alert() {
+//   return <p className={css.alert}>***This is alert text***</p>;
+// }
+
+////////////////////////////////////////////////////
+//--------------------clsx-------------------------
+
+import clsx from 'clsx';
+import css from './Alert.module.css';
+
+interface AlertProps {
+  type?: 'success' | 'error';
+  message: string;
+}
+
+export default function Alert({ type, message }: AlertProps) {
+  return <p className={clsx(css.alert, type && css[type])}>{message}</p>;
 }
