@@ -1,5 +1,6 @@
 import Product from "./Product";
 import Alert from "./Alert";
+import Button from "./Button";
 
 export default function App() {
   return (
@@ -26,6 +27,8 @@ export default function App() {
         type="error"
         message="Please, settle the due amount"
       />
+      <Button variant="primary" text="Login" />
+      <Button variant="secondary" text="Follow" />
            
     </>
   );
