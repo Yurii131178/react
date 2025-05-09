@@ -373,20 +373,40 @@
 
 //приклад:
 
-import { useState } from 'react';
+import { useState } from "react";
 
-const Counter = () => {
-  const [count, setCount] = useState(0); // створення стану зі значенням 0
-  
+interface User {
+  id: number;
+  name: string;
+}
+
+const App = () => {
+  const [items] = useState<User[]>([
+    { id: 1, name: 'Анна' },
+    { id: 2, name: 'Богдан' },
+  ]);
+
+  const [user, setUser] = useState<User | null>(null);
 
   return (
     <div>
-      <p>Лічильник: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Додати 1</button>
+      <h1>Користувачі</h1>
+      {items.map((item) => (
+        <div key={item.id} onClick={() => setUser(item)} style={{ cursor: 'pointer' }}>
+          {item.name}
+        </div>
+      ))}
+
+      {user && (
+        <div style={{ marginTop: '20px' }}>
+          <h2>Обрано:</h2>
+          <p>{user.name} (ID: {user.id})</p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Counter;
+export default App;
 
 //...........................................................//
