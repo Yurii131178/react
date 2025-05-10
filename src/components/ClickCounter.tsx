@@ -68,20 +68,23 @@ export default function App() {
 // Рішення – підняти стан
 
 // Ми переміщаємо clicks до App, і передаємо значення стану clicks як проп value, та handleClicks як проп onUpdate у ClickCounter як пропси.
+//=====================================================//
+// interface ClickCounterProps {
+//   value: number;
+//   onUpdate: () => void;
+// }
 
-interface ClickCounterProps {
-  value: number;
-  onUpdate: () => void;
-}
+// export default function ClickCounter({ value, onUpdate }: ClickCounterProps) {
+//   return <button onClick={onUpdate}  style={{
+//       padding: '10px 20px',
+//       fontSize: '16px',
+//       backgroundColor: '#4CAF50',
+//       color: 'yellow',
+//       border: 'none',
+//       borderRadius: '5px',
+//       cursor: 'pointer'
+//     }}>Clicked: {value}</button>;
+// }
+//=============================================//
+//................................................//
 
-export default function ClickCounter({ value, onUpdate }: ClickCounterProps) {
-  return <button onClick={onUpdate}  style={{
-      padding: '10px 20px',
-      fontSize: '16px',
-      backgroundColor: '#4CAF50',
-      color: 'yellow',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer'
-    }}>Clicked: {value}</button>;
-}

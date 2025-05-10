@@ -499,23 +499,113 @@ export default function App() {
 
 //src/components/App.tsx
 
+// import { useState } from "react";
+// import ClickCounter from "./ClickCounter";
+
+// export default function App() {
+//   const [clicks, setClicks] = useState(0);
+
+//   const handleClick = () => {
+//     setClicks(clicks + 1);
+//   };
+
+//   return (
+//     <>
+//       <div style={{marginTop: '20px', display: 'flex', gap: '20px', paddingLeft: '40px'}}>
+//         <ClickCounter value={clicks} onUpdate={handleClick} />
+//         <ClickCounter value={clicks} onUpdate={handleClick} />
+//         <ClickCounter value={ clicks } onUpdate={ handleClick }/>
+//       </div>
+//     </>
+//   );
+// }
+//=========================================================//
+//.........................................................//
+// Декілька станів
+
+// React-компонент може мати скільки завгодно незалежних станів. Для кожної "частинки" даних використовуйте окремий useState.
+/**
+ const [count, setCount] = useState(0); 
+ const [isOpen, setIsOpen] = useState(false);
+ */
+
+//Нижче приклад компонента, який:
+/**
+Рахує кліки (count)
+Відображає або ховає повідомлення (isOpen)
+ */
+//=========================================//
 import { useState } from "react";
-import ClickCounter from "./ClickCounter";
 
 export default function App() {
-  const [clicks, setClicks] = useState(0);
+    const [count, setCount] = useState(0);
+    const [isOpen, setIsOpen] = useState(false);
 
-  const handleClick = () => {
-    setClicks(clicks + 1);
-  };
+    const handleClick = () => {
+        setCount(count + 1);
+    };
 
-  return (
-    <>
-      <div style={{marginTop: '20px', display: 'flex', gap: '20px', paddingLeft: '40px'}}>
-        <ClickCounter value={clicks} onUpdate={handleClick} />
-        <ClickCounter value={clicks} onUpdate={handleClick} />
-        <ClickCounter value={ clicks } onUpdate={ handleClick }/>
-      </div>
-    </>
-  );
+    const toggleMessage = () => {
+        setIsOpen(!isOpen);
+    };
+
+    return (
+        <>
+            <button onClick={handleClick}>
+                Clicked: {count}
+            </button>
+            <button onClick={toggleMessage}>{isOpen ? "Hide message" : "Show message"}
+                
+            </button>
+
+            {isOpen &&
+                <p>🎉 Surprise! You toggled me.</p>
+            }              
+        </>
+    );
 }
+//=========================================//
+//Кожен стан працює незалежно. Зміна count не впливає на isOpen, і навпаки. Це дозволяє створювати прості, зрозумілі компоненти навіть з кількома логіками всередині.
+
+//Щодо оператора &&:
+//Це приклад умовного рендерингу в React за допомогою логічного оператора AND (&&).
+// Що відбувається:
+/**
+*isOpen — це булеве значення (true або false).
+*&& — логічний оператор "І".
+*У JavaScript, якщо ліва частина виразу (isOpen) — true, тоді виконується права частина (виводиться елемент <p>).
+*Якщо isOpen — false, React нічого не виведе (тобто не буде жодного HTML-елемента).
+
+Простіше кажучи:
+***"Виводь абзац <p> тільки тоді, коли isOpen має значення true."***
+ */
+
+// Ось три способи умовного рендерингу в React, включно з твоїм:
+
+// ✅ 1. Через && (як у тебе):
+// {isOpen && <p>🎉 Surprise! You toggled me.</p>}
+// Рендерить <p>, тільки якщо isOpen === true.
+
+// ✅ 2. Через тернарний оператор ? :
+// {isOpen ? <p>🎉 Surprise! You toggled me.</p> : null}
+// Якщо isOpen === true, відображає <p>, інакше — нічого (null).
+
+// Можна також зробити щось інше у else:
+// {isOpen ? <p>🎉 Surprise! You toggled me.</p> : <p>🔒 Нічого не видно</p>}
+
+// ✅ 3. Через if всередині функції
+// Це підходить, якщо логіка складніша:
+
+// let message;
+// if (isOpen) {
+//   message = <p>🎉 Surprise! You toggled me.</p>;
+// }
+
+// return (
+//   <>
+//     <button onClick={toggleMessage}>Toggle</button>
+//     {message}
+//   </>
+// );
+// Ми спочатку створюємо змінну message, а потім вставляємо її у JSX.
+
