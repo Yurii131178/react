@@ -373,40 +373,84 @@
 
 //приклад:
 
-import { useState } from "react";
+// import { useState } from "react";
 
-interface User {
-  id: number;
-  name: string;
-}
+// interface User {
+//   id: number;
+//   name: string;
+// }
 
-const App = () => {
-  const [items] = useState<User[]>([
-    { id: 1, name: 'Анна' },
-    { id: 2, name: 'Богдан' },
-  ]);
+// const App = () => {
+//   const [items] = useState<User[]>([
+//     { id: 1, name: 'Анна' },
+//     { id: 2, name: 'Богдан' },
+//   ]);
 
-  const [user, setUser] = useState<User | null>(null);
+//   const [user, setUser] = useState<User | null>(null);
 
-  return (
-    <div>
-      <h1>Користувачі</h1>
-      {items.map((item) => (
-        <div key={item.id} onClick={() => setUser(item)} style={{ cursor: 'pointer' }}>
-          {item.name}
-        </div>
-      ))}
+//   return (
+//     <div style={{ marginTop: '20px', padding: '10px' }}>
+//       <h1>Користувачі</h1>
+//       {items.map((item) => (
+//         <div key={item.id} onClick={() => setUser(item)} style={{ cursor: 'pointer' }}>
+//           {item.name}
+//         </div>
+//       ))}
 
-      {user && (
-        <div style={{ marginTop: '20px' }}>
-          <h2>Обрано:</h2>
-          <p>{user.name} (ID: {user.id})</p>
-        </div>
-      )}
-    </div>
-  );
-};
+//       {user && (
+//         <div style={{ color: 'blue'}}>
+//           <h2>Обрано:</h2>
+//           <p>{user.name} (ID: {user.id})</p>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
 
-export default App;
+// export default App;
 
 //...........................................................//
+
+//-----------Локальність стану-----------------------//
+
+//Стан у React завжди локальний для кожної копії компонента. Якщо ми рендеримо один і той самий компонент кілька разів – кожен екземпляр зберігає свій окремий стан.
+
+// Створимо компонент ClickCounter, який підраховує кліки: (див компонент ClickCounter):
+
+//src/components/ClickCounter.tsx
+/**
+import { useState } from "react";
+
+export default function ClickCounter() {
+
+const [clicks, setClicks] = useState(0);
+
+const handleClick = () => {
+  setClicks(clicks + 1);
+};
+
+return <button onClick={handleClick}>Clicked: {clicks}</button>;
+}
+ */
+
+//Тепер в App відрендеримо три кнопки, але вони не залежать одна від одної:
+
+import ClickCounter from "./ClickCounter";
+
+export default function App() {
+  return (
+    <>
+      <div style={{marginTop: '20px', display: 'flex', gap: '20px'}}>
+        <ClickCounter />
+        <ClickCounter />
+        <ClickCounter/>
+      </div> 
+    </>
+  )
+}
+
+//Кожна кнопка має свій власний стан. Клік по одній не змінює значення в іншій.
+
+// Стан не зберігається глобально – він живе лише в компоненті, де створений.
+// У кожної копії – свій стан.
+// Компонент App не має доступу до внутрішнього стану ClickCounter.
