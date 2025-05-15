@@ -329,7 +329,7 @@
 
 //..............................................................//
 
-// Типізація useState
+// ================Типізація useState=========================//
 
 // Хук useState може зберігати буль які дані тому використовує узагальнений тип (generic), щоб явно вказати, якого типу буде значення стану.
 
@@ -601,15 +601,15 @@ export default function App() {
 //---------------Оновлення обʼєктів-----------------//
 //Стан компонента може містити будь-який тип даних, у тому числі об’єкти. Наприклад, збережемо координати x та y в одному об’єкті.
 //===============================================//
-// import { useState } from "react";
+import { useState } from "react";
 
-// interface Values {
-//   x: number;
-//   y: number;
-// }
+interface Values {
+  x: number;
+  y: number;
+}
 
-// export default function App() {
-//   const [values, setValues] = useState<Values>({ x: 0, y: 0 });
+export default function App() {
+  const [values, setValues] = useState<Values>({ x: 0, y: 0 });
 
 //   //Стан у React – тільки для читання. Якщо змінити його напряму, React не помітить змін і не оновить інтерфейс. Не можна змінювати об'єкт напряму!
 // //   const updateX = () => {
@@ -618,33 +618,33 @@ export default function App() {
 //   //  };
 //   // Завжди створюйте новий об’єкт і використовуйте оператор spread (...) для оновлення стану через setValues. Інакше ви випадково видалите інші поля, наприклад, y.
 
-//   const updateX = () => {
-//     setValues({
-//       ...values,
-//       x: values.x + 1,
-//     });
+  const updateX = () => {
+    setValues({
+      ...values,
+      x: values.x + 1,
+    });
 //     //----------------------------------------------//
 // //Створюємо новий об'єкт, використовуючи оператор розпакування ...values, щоб зберегти всі інші властивості (y).
 // // Змінюємо лише x, додаючи 1.
 // // Це правильний спосіб оновлення вкладених значень в об’єкті стану.
 // //------------------------------------------------------//
-//   };
-//   const updateY = () => {
-//     setValues({
-//       ...values,
-//       y: values.y + 1,
-//     });
+  };
+  const updateY = () => {
+    setValues({
+      ...values,
+      y: values.y + 1,
+    });
 
-//   };
+  };
 
-//   return (
-//     <div>
-//       <p>x: {values.x}, y: {values.y}</p>
-//       <button onClick={updateX}>Update x</button>
-//       <button onClick={updateY}>Update y</button>
-//     </div>
-//   );
-// }
+  return (
+    <div>
+      <p>x: {values.x}, y: {values.y}</p>
+      <button onClick={updateX}>Update x</button>
+      <button onClick={updateY}>Update y</button>
+    </div>
+  );
+}
 //===========================================//
 // Універсальна функція оновлення
 
@@ -673,35 +673,35 @@ export default function App() {
 //======================================//
 //======================================//
 //==переришемо задачу==//
-import { useState } from "react";
-interface Values {
-  x: number;
-  y: number;
-  // додамо ще одне поле
-  z: number;
-}
+// import { useState } from "react";
+// interface Values {
+//   x: number;
+//   y: number;
+//   // додамо ще одне поле
+//   z: number;
+// }
 
-export default function App() {
-  const [values, setValues] = useState<Values>({ x: 0, y: 0, z: 0 });
+// export default function App() {
+//   const [values, setValues] = useState<Values>({ x: 0, y: 0, z: 0 });
 
-  const updateValue = (key: keyof Values) => {
-    setValues({
-      ...values,
-      [key]: values[key] + 1,
-    });
-  };
+//   const updateValue = (key: keyof Values) => {
+//     setValues({
+//       ...values,
+//       [key]: values[key] + 1,
+//     });
+//   };
 
-  return (
-    <div>
-      <p>
-        x: {values.x}, y: {values.y}, z:{values.z},
-      </p>
-      <button onClick={() => updateValue("x")}>Update x</button>
-      <button onClick={() => updateValue("y")}>Update y</button>
-      <button onClick={() => updateValue("z")}>Update z</button>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <p>
+//         x: {values.x}, y: {values.y}, z:{values.z},
+//       </p>
+//       <button onClick={() => updateValue("x")}>Update x</button>
+//       <button onClick={() => updateValue("y")}>Update y</button>
+//       <button onClick={() => updateValue("z")}>Update z</button>
+//     </div>
+//   );
+// }
 //=====================================//
 
 // Підсумок
